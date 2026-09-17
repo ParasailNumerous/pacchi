@@ -1,0 +1,759 @@
+From 62b9b4a9cd4e790e96d04ba0c3b8741a712f0db4 Mon Sep 17 00:00:00 2001
+From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
+Date: Thu, 17 Sep 2026 21:10:13 +0000
+Subject: [PATCH 15/15] style: add pacchi theme ported to Material Symbols
+
+Use ligature hide for search button and grid centering for nav
+icons (material-symbols + vendored X SVG) instead of fontello
+::before glyph hacks.
+---
+ public/css/themes/pacchi.css | 736 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 736 insertions(+)
+ create mode 100644 public/css/themes/pacchi.css
+
+diff --git a/public/css/themes/pacchi.css b/public/css/themes/pacchi.css
+new file mode 100644
+index 0000000..0b556c5
+--- /dev/null
++++ b/public/css/themes/pacchi.css
+@@ -0,0 +1,736 @@
++body {
++    --pacchi-sys-color-background: #fff8f6;
++    --pacchi-sys-color-on-background: #231918;
++    --pacchi-sys-color-surface: #fff8f6;
++    --pacchi-sys-color-surface-dim: #e8d6d3;
++    --pacchi-sys-color-surface-bright: #fff8f6;
++    --pacchi-sys-color-surface-container-lowest: #ffffff;
++    --pacchi-sys-color-surface-container-low: #fff0ee;
++    --pacchi-sys-color-surface-container: #fceae7;
++    --pacchi-sys-color-surface-container-high: #f7e4e1;
++    --pacchi-sys-color-surface-container-highest: #f1dfdb;
++    --pacchi-sys-color-on-surface: #231918;
++    --pacchi-sys-color-surface-variant: #f5ddd9;
++    --pacchi-sys-color-on-surface-variant: #534340;
++    --pacchi-sys-color-inverse-surface: #392e2c;
++    --pacchi-sys-color-inverse-on-surface: #ffedea;
++    --pacchi-sys-color-outline: #857370;
++    --pacchi-sys-color-outline-variant: #d8c2be;
++    --pacchi-sys-color-shadow: #000000;
++    --pacchi-sys-color-scrim: #000000;
++    --pacchi-sys-color-surface-tint: #904b3f;
++    --pacchi-sys-color-primary: #904b3f;
++    --pacchi-sys-color-on-primary: #ffffff;
++    --pacchi-sys-color-primary-container: #ffdad4;
++    --pacchi-sys-color-on-primary-container: #73342a;
++    --pacchi-sys-color-inverse-primary: #ffb4a7;
++    --pacchi-sys-color-secondary: #775651;
++    --pacchi-sys-color-on-secondary: #ffffff;
++    --pacchi-sys-color-secondary-container: #ffdad4;
++    --pacchi-sys-color-on-secondary-container: #5d3f3a;
++    --pacchi-sys-color-tertiary: #6f5c2e;
++    --pacchi-sys-color-on-tertiary: #ffffff;
++    --pacchi-sys-color-tertiary-container: #fbe0a6;
++    --pacchi-sys-color-on-tertiary-container: #564519;
++    --pacchi-sys-color-error: #ba1a1a;
++    --pacchi-sys-color-on-error: #ffffff;
++    --pacchi-sys-color-error-container: #ffdad6;
++    --pacchi-sys-color-on-error-container: #93000a;
++    --pacchi-sys-color-primary-fixed: #ffdad4;
++    --pacchi-sys-color-primary-fixed-dim: #ffb4a7;
++    --pacchi-sys-color-on-primary-fixed: #3a0904;
++    --pacchi-sys-color-on-primary-fixed-variant: #73342a;
++    --pacchi-sys-color-secondary-fixed: #ffdad4;
++    --pacchi-sys-color-secondary-fixed-dim: #e7bdb6;
++    --pacchi-sys-color-on-secondary-fixed: #2c1511;
++    --pacchi-sys-color-on-secondary-fixed-variant: #5d3f3a;
++    --pacchi-sys-color-tertiary-fixed: #fbe0a6;
++    --pacchi-sys-color-tertiary-fixed-dim: #ddc48c;
++    --pacchi-sys-color-on-tertiary-fixed: #251a00;
++    --pacchi-sys-color-on-tertiary-fixed-variant: #564519;
++}
++
++@media (prefers-color-scheme: dark) {
++    body {
++        --pacchi-sys-color-background: #1a1110;
++        --pacchi-sys-color-on-background: #f1dfdb;
++        --pacchi-sys-color-surface: #1a1110;
++        --pacchi-sys-color-surface-dim: #1a1110;
++        --pacchi-sys-color-surface-bright: #423735;
++        --pacchi-sys-color-surface-container-lowest: #140c0b;
++        --pacchi-sys-color-surface-container-low: #231918;
++        --pacchi-sys-color-surface-container: #271d1c;
++        --pacchi-sys-color-surface-container-high: #322826;
++        --pacchi-sys-color-surface-container-highest: #3d3230;
++        --pacchi-sys-color-on-surface: #f1dfdb;
++        --pacchi-sys-color-surface-variant: #534340;
++        --pacchi-sys-color-on-surface-variant: #d8c2be;
++        --pacchi-sys-color-inverse-surface: #f1dfdb;
++        --pacchi-sys-color-inverse-on-surface: #392e2c;
++        --pacchi-sys-color-outline: #a08c89;
++        --pacchi-sys-color-outline-variant: #534340;
++        --pacchi-sys-color-shadow: #000000;
++        --pacchi-sys-color-scrim: #000000;
++        --pacchi-sys-color-surface-tint: #ffb4a6;
++        --pacchi-sys-color-primary: #ffb4a6;
++        --pacchi-sys-color-on-primary: #561e15;
++        --pacchi-sys-color-primary-container: #733429;
++        --pacchi-sys-color-on-primary-container: #ffdad4;
++        --pacchi-sys-color-inverse-primary: #904b3e;
++        --pacchi-sys-color-secondary: #e7bdb5;
++        --pacchi-sys-color-on-secondary: #442a25;
++        --pacchi-sys-color-secondary-container: #5d3f3a;
++        --pacchi-sys-color-on-secondary-container: #ffdad4;
++        --pacchi-sys-color-tertiary: #ddc48c;
++        --pacchi-sys-color-on-tertiary: #3d2e04;
++        --pacchi-sys-color-tertiary-container: #564519;
++        --pacchi-sys-color-on-tertiary-container: #fae0a6;
++        --pacchi-sys-color-error: #ffb4ab;
++        --pacchi-sys-color-on-error: #690005;
++        --pacchi-sys-color-error-container: #93000a;
++        --pacchi-sys-color-on-error-container: #ffdad6;
++        --pacchi-sys-color-primary-fixed: #ffdad4;
++        --pacchi-sys-color-primary-fixed-dim: #ffb4a6;
++        --pacchi-sys-color-on-primary-fixed: #3a0a04;
++        --pacchi-sys-color-on-primary-fixed-variant: #733429;
++        --pacchi-sys-color-secondary-fixed: #ffdad4;
++        --pacchi-sys-color-secondary-fixed-dim: #e7bdb5;
++        --pacchi-sys-color-on-secondary-fixed: #2c1511;
++        --pacchi-sys-color-on-secondary-fixed-variant: #5d3f3a;
++        --pacchi-sys-color-tertiary-fixed: #fae0a6;
++        --pacchi-sys-color-tertiary-fixed-dim: #ddc48c;
++        --pacchi-sys-color-on-tertiary-fixed: #251a00;
++        --pacchi-sys-color-on-tertiary-fixed-variant: #564519;
++    }
++}
++
++body {
++    --bg_color: var(--pacchi-sys-color-surface-container);
++    --fg_color: var(--pacchi-sys-color-on-surface);
++    --fg_faded: var(--pacchi-sys-color-on-surface-variant);
++    --fg_dark: var(--pacchi-sys-color-primary);
++    --fg_nav: var(--pacchi-sys-color-primary);
++
++    --bg_panel: var(--pacchi-sys-color-surface);
++    --bg_elements: var(--pacchi-sys-color-surface-container-low);
++    --bg_overlays: var(--pacchi-sys-color-surface);
++    --bg_hover: var(--pacchi-sys-color-surface-bright);
++
++    --grey: var(--pacchi-sys-color-outline);
++    --dark_grey: var(--pacchi-sys-color-outline-variant);
++    --darker_grey: var(--pacchi-sys-color-surface-container-low);
++    --darkest_grey: var(--pacchi-sys-color-surface-container-lowest);
++    --border_grey: var(--pacchi-sys-color-outline-variant);
++
++    --accent: var(--pacchi-sys-color-primary);
++    --accent_light: var(--pacchi-sys-color-primary-fixed);
++    --accent_dark: var(--pacchi-sys-color-primary-container);
++    --accent_border: var(--pacchi-sys-color-outline);
++
++    --play_button: var(--pacchi-sys-color-primary);
++    --play_button_hover: var(--pacchi-sys-color-primary-fixed-dim);
++
++    --more_replies_dots: var(--pacchi-sys-color-outline);
++    --error_red: var(--pacchi-sys-color-error-container);
++    --verified_blue: var(--pacchi-sys-color-secondary);
++    --icon_text: var(--pacchi-sys-color-on-surface);
++
++    --tab: var(--pacchi-sys-color-on-surface-variant);
++    --tab_selected: var(--pacchi-sys-color-primary);
++
++    --profile_stat: var(--pacchi-sys-color-on-surface);
++
++    --pacchi-nav-height: 56px;
++
++    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
++    accent-color: var(--pacchi-sys-color-primary);
++    color-scheme: light dark;
++    font-size: 1rem;
++}
++
++body.fixed-nav .container {
++    padding-top: var(--pacchi-nav-height);
++}
++
++* {
++    outline: 0px solid transparent;
++    margin: 0;
++    text-decoration: none;
++
++    &:where(:focus-visible) {
++        outline: var(--focus-ring-width, 2px) solid var(--focus-ring-color, var(--pacchi-sys-color-secondary));
++        outline-offset: var(--focus-ring-offset, 0px);
++    }
++}
++
++input,
++button,
++select {
++    font-family: inherit;
++}
++
++input[type="text"],
++input[type="number"] {
++    --focus-ring-width: 2px;
++    --focus-ring-offset: -2px;
++    --focus-ring-color: var(--pacchi-sys-color-primary);
++}
++
++.search-bar,
++.search-bar-nav {
++    &>form {
++        padding: 4px;
++        border-radius: 100px;
++        margin: auto;
++        gap: 8px;
++        background-color: var(--pacchi-sys-color-surface);
++        box-shadow: none;
++
++        input {
++            font-size: 1rem;
++            min-width: 0;
++            background-color: var(--pacchi-sys-color-surface);
++            color: var(--fg_color);
++            border: 0;
++            border-radius: inherit;
++            padding: 12px 16px;
++            margin-right: 0;
++            height: unset;
++        }
++
++        button {
++            position: relative;
++            background-color: var(--pacchi-sys-color-secondary-container);
++            color: var(--pacchi-sys-color-on-secondary-container);
++            border-radius: inherit;
++            flex-shrink: 0;
++            width: 42px;
++            height: 42px;
++            padding: 0px 5px 1px 8px;
++
++            &::after {
++                content: "";
++                position: absolute;
++                top: 50%;
++                left: 50%;
++                transform: translate(-50%, -50%);
++                width: 24px;
++                height: 24px;
++                mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224%22%20viewBox%3D%220%20-960%20960%20960%22%20width%3D%2224%22%20fill%3D%22%23e3e3e3%22%3E%3Cpath%20d%3D%22M784-120%20532-372q-30%2024-69%2038t-83%2014q-109%200-184.5-75.5T120-580t75.5-184.5T380-840t184.5%2075.5T640-580q0%2044-14%2083t-38%2069l252%20252zM380-400q75%200%20127.5-52.5T560-580t-52.5-127.5T380-760t-127.5%2052.5T200-580t52.5%20127.5T380-400%22%2F%3E%3C%2Fsvg%3E");
++                background: currentColor
++            }
++
++            /* search button uses ::after mask; hide ligature */
++            .material-symbols-outlined {
++                display: none;
++            }
++        }
++    }
++}
++
++.search-field {
++    position: relative;
++
++    .pref-input {
++        margin: 0;
++        padding: 0;
++        height: auto;
++        flex-grow: 1;
++        margin-right: 8px;
++
++        input {
++            width: 100%;
++            border-radius: 100px;
++            font-size: 1rem;
++            min-width: 0;
++            background-color: var(--pacchi-sys-color-surface-container-lowest);
++            color: var(--fg_color);
++            border: 0;
++            padding: 12px 16px;
++            box-sizing: border-box;
++            margin-right: 0;
++            height: unset;
++        }
++    }
++
++    button,
++    >label {
++        width: 42px;
++        height: 42px;
++        border-radius: 21px;
++        box-sizing: border-box;
++        flex-shrink: 0;
++        display: flex;
++        align-items: center;
++        justify-content: center;
++        border-color: transparent;
++        background-color: var(--pacchi-sys-color-secondary-container);
++        color: var(--pacchi-sys-color-on-secondary-container);
++
++        .icon-container {
++            transform: scale(1.25);
++        }
++    }
++
++    >label {
++        background-color: transparent;
++        color: var(--pacchi-sys-color-on-surface);
++    }
++
++    /*{
++        display: inline;
++        background-color: var(--bg_elements);
++        color: var(--fg_color);
++        border: 1px solid var(--accent_border);
++        padding: 1px 1px 2px 4px;
++        font-size: 14px;
++        cursor: pointer;
++        margin-bottom: 2px;
++    }*/
++}
++
++.search-field #search-panel-toggle {
++    display: block;
++    opacity: 0;
++    width: 0;
++    height: 0;
++}
++
++.search-field #search-panel-toggle:checked~.search-panel {
++    display: block;
++}
++
++.search-field #search-panel-toggle:focus~label {
++    outline: 2px solid var(--pacchi-sys-color-secondary);
++}
++
++.search-panel {
++    transition: none;
++    display: none;
++
++    .search-toggles {
++        flex-grow: 1;
++        display: grid;
++        grid-template-columns: repeat(5, auto);
++        gap: 2px;
++    }
++
++    .checkbox-container {
++        margin: 0;
++        padding: 8px 12px;
++        background-color: var(--pacchi-sys-color-surface);
++        border-radius: 4px;
++
++        @media (hover: hover) {
++            &:hover {
++                background-color: color-mix(in srgb, var(--pacchi-sys-color-on-surface) 8%, var(--pacchi-sysw-color-surface));
++            }
++        }
++
++        input[type="checkbox"] {
++            right: 8px;
++            top: 10px;
++        }
++
++        &:has(> input[type="checkbox"]:checked) {
++            accent-color: var(--pacchi-sys-color-tertiary);
++            background-color: var(--pacchi-sys-color-tertiary-container);
++            color: var(--pacchi-sys-color-on-tertiary-container);
++            border-radius: 100px;
++        }
++    }
++}
++
++.tab {
++    background-color: var(--pacchi-sys-color-surface);
++    border-radius: 8px;
++    margin-block: 0 4px;
++    overflow-x: auto;
++    flex-wrap: nowrap;
++
++    .tab-item {
++        a {
++            --focus-ring-offset: -2px;
++            border-block: 2px solid transparent;
++            font-weight: 400;
++            padding: 10px 0;
++            white-space: nowrap;
++            flex-shrink: 0;
++        }
++
++        &.active a {
++            font-weight: bold;
++            border-bottom-color: var(--pacchi-sys-color-primary);
++        }
++    }
++}
++
++.timeline-header {
++    margin-block: 4px;
++    font-weight: 400;
++    border-radius: calc(62px/2);
++}
++
++.timeline-item {
++    overflow-wrap: break-word;
++    border-left-width: 0;
++    min-width: 0;
++    padding: 0.75em;
++    display: flex;
++    position: relative;
++    background-color: var(--pacchi-sys-color-surface);
++    border-radius: 16px;
++
++    &>.tweet-link {
++        border-radius: inherit;
++    }
++
++    a.still-image {
++        --focus-ring-offset: -4px;
++
++        &:focus-visible {
++            opacity: 0.8;
++        }
++    }
++}
++
++.main-thread,
++.latest-edit {
++    margin-bottom: 8px;
++}
++
++.reply {
++    margin-bottom: 4px;
++}
++
++.reply-sort {
++    margin-bottom: 4px;
++    font-size: 1rem;
++    border-radius: 8px;
++    padding: 2px 16px;
++    gap: 0;
++
++    .reply-sort-label {
++        margin-right: 8px;
++    }
++
++    .reply-sort-option {
++        font-weight: 400;
++        padding: 8px 12px;
++
++        &.active {
++            font-weight: bold;
++        }
++    }
++}
++
++.tweet-date a,
++.username,
++.show-more a {
++    color: var(--pacchi-sys-color-on-surface-variant);
++}
++
++body.fixed-nav .main-tweet {
++    padding-top: var(--pacchi-nav-height);
++    margin-top: calc(-1 * var(--pacchi-nav-height) + 8px);
++}
++
++body.fixed-nav .replies,
++body.fixed-nav .edit-history>div {
++    padding-top: var(--pacchi-nav-height);
++    margin-top: calc(-1 * var(--pacchi-nav-height));
++}
++
++.fullname {
++    font-weight: bold;
++    font-size: 1rem;
++}
++
++@media (hover: hover) {
++    .tweet-link:hover {
++        background-color: color-mix(in srgb, currentColor 8%, transparent);
++    }
++}
++
++.timeline>div:not(:first-child) {
++    border-top: none;
++    margin-top: 4px;
++}
++
++.profile-banner {
++    margin-block: 4px 16px;
++
++    &,
++    & img {
++        border-radius: 16px;
++    }
++}
++
++.profile-tabs {
++    max-width: 1080px;
++}
++
++.profile-tab {
++    font-size: 1rem;
++    padding: 0 16px 0 0;
++}
++
++.profile-card {
++    background-color: var(--pacchi-sys-color-surface-bright);
++    border-radius: 28px;
++    padding: 16px;
++    gap: 4px;
++}
++
++.profile-card-fullname {
++    font-size: 1.5rem;
++    font-weight: bold;
++}
++
++.profile-card-username {
++    font-size: 1rem;
++    color: var(--pacchi-sys-color-on-surface-variant);
++}
++
++.profile-card-extra-links {
++    margin-top: 8px;
++    font-size: 1rem;
++    width: 100%;
++}
++
++.profile-statlist {
++    display: grid;
++    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
++    gap: 8px 24px;
++
++    li {
++
++        &,
++        >a {
++            display: flex;
++            gap: 0.5rem;
++            justify-content: space-between;
++        }
++
++        >a {
++            width: 100%;
++        }
++    }
++
++    .profile-stat-header {
++        font-weight: 500;
++    }
++
++    .profile-stat-num {
++        color: var(--pacchi-sys-color-on-surface-variant)
++    }
++}
++
++.profile-card-avatar img {
++    border-radius: calc(28px - 16px / 2);
++    border: none;
++}
++
++.photo-rail-card {
++    background-color: var(--pacchi-sys-color-surface-bright);
++    margin: 8px 0;
++    border-radius: 16px 16px 10px 10px;
++}
++
++.photo-rail-header {
++    padding: 8px 16px;
++}
++
++.photo-rail-header-mobile {
++    padding: 0 16px;
++    height: 44px;
++    align-items: center;
++}
++
++.photo-rail-grid {
++    padding: 0 8px 8px 8px;
++}
++
++/* Verified icon should scale with text size */
++
++button {
++    --focus-ring-offset: 2px;
++    background-color: transparent;
++    color: inherit;
++    border: 1px solid var(--pacchi-sys-color-outline);
++    padding: 10px 12px;
++    border-radius: 100px;
++    font-size: 1rem;
++}
++
++nav {
++    background-color: var(--pacchi-sys-color-surface-container);
++    box-shadow: none;
++    height: var(--pacchi-nav-height);
++
++    a {
++        color: inherit;
++    }
++
++    .icon-container a {
++        display: grid;
++        place-items: center;
++        margin: 0;
++        width: 48px;
++        height: 100%;
++        border-radius: 50%;
++        --focus-ring-offset: -2px;
++
++        .material-symbols-outlined,
++        .icon-svg {
++            font-size: 24px;
++            width: 24px;
++            height: 24px;
++        }
++
++        @media (hover: hover) {
++            &:hover {
++                background: color-mix(in srgb, transparent, var(--pacchi-sys-color-on-surface) 8%)
++            }
++        }
++
++        &:active {
++            background: color-mix(in srgb, transparent, var(--pacchi-sys-color-on-surface) 16%)
++        }
++    }
++
++    .site-name {
++        font-size: 1rem;
++        width: 48px;
++        height: 48px;
++        border-radius: 50%;
++        --focus-ring-offset: -2px;
++        color: transparent !important;
++        position: relative;
++
++        &::after {
++            content: "";
++            mask-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224%22%20viewBox%3D%220%20-960%20960%20960%22%20width%3D%2224%22%20fill%3D%22%23e3e3e3%22%3E%3Cpath%20d%3D%22M160-120v-480l320-240%20320%20240v480H560v-280H400v280z%22%2F%3E%3C%2Fsvg%3E);
++            width: 24px;
++            height: 24px;
++            position: absolute;
++            left: 50%;
++            top: 50%;
++            transform: translate(-50%, -50%);
++            display: block;
++            background: var(--pacchi-sys-color-on-surface);
++        }
++
++        @media (hover: hover) {
++            &:hover {
++                background: color-mix(in srgb, transparent, var(--pacchi-sys-color-on-surface) 8%)
++            }
++        }
++
++        &:active {
++            background: color-mix(in srgb, transparent, var(--pacchi-sys-color-on-surface) 16%)
++        }
++    }
++
++    .nav-item {
++        flex-wrap: nowrap;
++        flex: 1 1 auto;
++        flex-shrink: 0;
++        line-height: var(--pacchi-nav-height);
++        height: var(--pacchi-nav-height);
++    }
++}
++
++.inner-nav {
++    height: var(--pacchi-nav-height);
++    padding: 0 8px;
++}
++
++.search-bar-nav>form {
++    background: transparent;
++    padding: 0;
++    border-bottom: none;
++
++    &:has(:focus) {
++        border-bottom: none;
++    }
++
++    button:focus-visible {
++        outline: var(--focus-ring-width, 2px) solid var(--focus-ring-color, var(--pacchi-sys-color-secondary));
++    }
++
++    button {
++        background-image: none;
++    }
++}
++
++.checkbox-container {
++    margin-bottom: 0;
++    padding: 10px 0;
++
++    input {
++        position: absolute;
++        opacity: 1;
++        cursor: pointer;
++        height: 16px;
++        width: 16px;
++        right: 0;
++    }
++
++    .checkbox {
++        display: none;
++    }
++}
++
++@media (max-width: 700px) {
++    body {
++        --pacchi-nav-height: 48px;
++    }
++
++    .inner-nav {
++        padding: 8px 0
++    }
++
++    .profile-banner {
++        margin-block: 0 4px;
++    }
++
++    .profile-tab {
++        padding: 0;
++    }
++
++    .search-bar-nav {
++        display: none;
++    }
++
++    .profile-card-tabs-name {
++        padding-top: 4px;
++    }
++
++    .profile-card-info {
++        gap: 8px;
++    }
++
++    .profile-card-username {
++        margin-top: 6px;
++    }
++
++    .photo-rail-header-mobile {
++        display: flex;
++    }
++
++    .photo-rail-grid {
++        transition: none;
++        display: none;
++        max-height: none;
++    }
++
++    .photo-rail-card {
++        margin-block: 4px 8px;
++    }
++
++    #photo-rail-grid-toggle:checked~.photo-rail-grid {
++        display: grid;
++        padding: 0 12px 12px 12px;
++    }
++}
+\ No newline at end of file
+-- 
+2.55.0
+

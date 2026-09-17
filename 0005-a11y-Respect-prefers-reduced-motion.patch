@@ -1,0 +1,32 @@
+From 84097481e49a676812bee8b3e62a3ebd4148d271 Mon Sep 17 00:00:00 2001
+From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
+Date: Thu, 17 Sep 2026 18:54:58 +0000
+Subject: [PATCH 05/15] a11y: Respect prefers-reduced-motion
+
+Honor the OS setting by collapsing animation and transition durations
+for users who ask for less motion.
+---
+ src/sass/general.scss | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/src/sass/general.scss b/src/sass/general.scss
+index 78bc959..e02ea06 100644
+--- a/src/sass/general.scss
++++ b/src/sass/general.scss
+@@ -88,3 +88,13 @@
+     height: unset;
+   }
+ }
++
++@media (prefers-reduced-motion: reduce) {
++  *,
++  ::before,
++  ::after {
++    animation-duration: 0.01ms !important;
++    animation-iteration-count: 1 !important;
++    transition-duration: 0.01ms !important;
++  }
++}
+-- 
+2.55.0
+

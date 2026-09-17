@@ -1,7 +1,7 @@
-From 1ecf666457a4713bb2e38621d0e6385000203c22 Mon Sep 17 00:00:00 2001
+From 9141a1ccfeeb986c18440ec064a30fea23c3e8ae Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 14:28:44 +0000
-Subject: [PATCH 2/3] rebrand text -> pacchi
+Subject: [PATCH 02/15] pacchi: rebrand text
 
 ---
  public/md/about.md      | 11 ++++++-----

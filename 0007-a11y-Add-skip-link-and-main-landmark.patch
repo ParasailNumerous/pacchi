@@ -1,0 +1,54 @@
+From 67af61569e424f0911e62467c09cb4f9080b7f3a Mon Sep 17 00:00:00 2001
+From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
+Date: Thu, 17 Sep 2026 18:55:13 +0000
+Subject: [PATCH 07/15] a11y: Add skip link and main landmark
+
+Wrap the page content in <main> and add a skip link that appears on
+focus, so keyboard and screen-reader users can bypass the navbar.
+---
+ src/sass/general.scss | 15 +++++++++++++++
+ src/views/general.nim |  3 ++-
+ 2 files changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/src/sass/general.scss b/src/sass/general.scss
+index e02ea06..60252fd 100644
+--- a/src/sass/general.scss
++++ b/src/sass/general.scss
+@@ -98,3 +98,18 @@
+     transition-duration: 0.01ms !important;
+   }
+ }
++
++.skip-link {
++  position: fixed;
++  top: 0;
++  left: 0;
++  z-index: 2000;
++  padding: 0.5em 1em;
++  background-color: var(--bg_overlays);
++  color: var(--fg_color);
++  transform: translateY(-100%);
++
++  &:focus {
++    transform: none;
++  }
++}
+diff --git a/src/views/general.nim b/src/views/general.nim
+index 48f4623..fa4fe81 100644
+--- a/src/views/general.nim
++++ b/src/views/general.nim
+@@ -148,9 +148,10 @@ proc renderMain*(body: VNode; req: Request; cfg: Config; prefs=defaultPrefs;
+ 
+     let bodyClass = if prefs.stickyNav: "fixed-nav" else: ""
+     body(class=bodyClass):
++      a(class="skip-link", href="#content"): text "Skip to content"
+       renderNavbar(cfg, req, rss, twitterLink)
+ 
+-      tdiv(class="container"):
++      main(id="content", tabindex="-1", class="container"):
+         body
+ 
+   result = doctype & $node
+-- 
+2.55.0
+

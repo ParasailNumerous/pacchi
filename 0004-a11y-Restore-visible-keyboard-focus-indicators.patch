@@ -1,0 +1,36 @@
+From 1fd4106748d926ba5ec583550a0f797df8e798e2 Mon Sep 17 00:00:00 2001
+From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
+Date: Thu, 17 Sep 2026 18:52:42 +0000
+Subject: [PATCH 04/15] a11y: Restore visible keyboard focus indicators
+
+The global `outline: unset` reset suppressed the browser focus ring
+without a replacement, so keyboard users could not see where focus
+was. Drop it and style :focus-visible explicitly.
+---
+ src/sass/index.scss | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/src/sass/index.scss b/src/sass/index.scss
+index 9817f65..22e43ca 100644
+--- a/src/sass/index.scss
++++ b/src/sass/index.scss
+@@ -61,11 +61,15 @@ body {
+ }
+ 
+ * {
+-  outline: unset;
+   margin: 0;
+   text-decoration: none;
+ }
+ 
++:where(a:any-link, button, input, select, textarea, [tabindex]):focus-visible {
++  outline: 2px solid var(--accent);
++  outline-offset: 2px;
++}
++
+ img {
+   dynamic-range-limit: standard;
+ }
+-- 
+2.55.0
+

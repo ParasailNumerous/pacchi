@@ -1,0 +1,154 @@
+From 238a1b30235933edc29588f527bdbc0a1f226d13 Mon Sep 17 00:00:00 2001
+From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
+Date: Thu, 17 Sep 2026 18:56:37 +0000
+Subject: [PATCH 08/15] a11y: Give icon-only controls accessible names
+
+Navbar icons and search submit buttons relied on `title` or empty
+content, so assistive tech read them as unlabeled. Derive aria-labels
+from the existing titles, name the buttons and inputs explicitly, and
+expose verified badges as a single labeled image.
+---
+ src/views/general.nim     |  6 +++---
+ src/views/renderutils.nim | 13 +++++++------
+ src/views/search.nim      |  9 +++++----
+ src/views/space.nim       |  6 +++---
+ src/views/timeline.nim    |  2 +-
+ src/views/tweet.nim       |  2 +-
+ 6 files changed, 20 insertions(+), 18 deletions(-)
+
+diff --git a/src/views/general.nim b/src/views/general.nim
+index fa4fe81..01df840 100644
+--- a/src/views/general.nim
++++ b/src/views/general.nim
+@@ -19,7 +19,7 @@ proc renderNavbar(cfg: Config; req: Request; rss, canonical: string): VNode =
+     path = $(parseUri(req.path) ? filterParams(req.params))
+     if "/status/" in path: path.add "#m"
+ 
+-  buildHtml(nav):
++  buildHtml(nav(`aria-label`="Primary")):
+     tdiv(class="inner-nav"):
+       tdiv(class="nav-item"):
+         a(class="site-name", href="/"): text cfg.title
+@@ -31,8 +31,8 @@ proc renderNavbar(cfg: Config; req: Request; rss, canonical: string): VNode =
+           form(`method`="get", action="/search", autocomplete="off"):
+             hiddenField("f", "tweets")
+             input(`type`="search", name="q", autofocus=false,
+-                  placeholder="Search [/]", dir="auto")
+-            button(`type`="submit")
++                  placeholder="Search [/]", dir="auto", `aria-label`="Search")
++            button(`type`="submit", `aria-label`="Search")
+ 
+       tdiv(class="nav-item right"):
+         icon "search", title="Search", href="/search"
+diff --git a/src/views/renderutils.nim b/src/views/renderutils.nim
+index af2f05d..426d4a5 100644
+--- a/src/views/renderutils.nim
++++ b/src/views/renderutils.nim
+@@ -25,19 +25,20 @@ proc icon*(icon: string; label=""; title=""; class=""; href=""): VNode =
+   if class.len > 0: c = &"{c} {class}"
+   buildHtml(tdiv(class="icon-container")):
+     if href.len > 0:
+-      a(class=c, title=title, href=href)
++      a(class=c, title=title, `aria-label`=(if title.len > 0: title else: label), href=href)
+     else:
+-      span(class=c, title=title)
+-
++      # a glyph is decorative unless it carries its own title
++      span(class=c, title=title, aria-hidden=(if title.len > 0: "false" else: "true"))
+     if label.len > 0:
+       text " " & label
+ 
+ template verifiedIcon*(user: User): untyped {.dirty.} =
+   if user.verifiedType != VerifiedType.none:
+     let lower = ($user.verifiedType).toLowerAscii()
+-    buildHtml(tdiv(class=(&"verified-icon {lower}"))):
+-      icon "circle", class="verified-icon-circle", title=(&"Verified {lower} account")
+-      icon "ok", class="verified-icon-check", title=(&"Verified {lower} account")
++    buildHtml(tdiv(class=(&"verified-icon {lower}"), role="img",
++                   `aria-label`=(&"Verified {lower} account"))):
++      icon "circle", class="verified-icon-circle"
++      icon "ok", class="verified-icon-check"
+   else:
+     text ""
+ 
+diff --git a/src/views/search.nim b/src/views/search.nim
+index 4d4ed5e..48fc06c 100644
+--- a/src/views/search.nim
++++ b/src/views/search.nim
+@@ -25,7 +25,7 @@ proc renderSearch*(): VNode =
+         hiddenField("f", "tweets")
+         input(`type`="text", name="q", autofocus="",
+               placeholder="Search...", dir="auto")
+-        button(`type`="submit"): icon "search"
++        button(`type`="submit", `aria-label`="Search"): icon "search"
+ 
+ proc renderProfileTabs*(query: Query; username: string): VNode =
+   let link = "/" & username
+@@ -93,9 +93,10 @@ proc renderSearchPanel*(query: Query): VNode =
+                  class="search-field", autocomplete="off")):
+     hiddenField("f", $query.kind)
+     genInput("q", "", query.text, "Enter search...", class="pref-inline")
+-    button(`type`="submit"): icon "search"
++    button(`type`="submit", `aria-label`="Search"): icon "search"
+ 
+-    input(id="search-panel-toggle", `type`="checkbox", checked=isPanelOpen(query))
++    input(id="search-panel-toggle", `type`="checkbox", checked=isPanelOpen(query),
++          `aria-label`="Search filters")
+     label(`for`="search-panel-toggle"): icon "down"
+ 
+     tdiv(class="search-panel"):
+@@ -153,7 +154,7 @@ proc renderSearchForm(kind, placeholder, value: string): VNode =
+                  class="search-field", autocomplete="off")):
+     hiddenField("f", kind)
+     genInput("q", "", value, placeholder, class="pref-inline")
+-    button(`type`="submit"): icon "search"
++    button(`type`="submit", `aria-label`="Search"): icon "search"
+ 
+ proc renderUserSearch*(results: Result[User]; prefs: Prefs): VNode =
+   buildHtml(tdiv(class="timeline-container")):
+diff --git a/src/views/space.nim b/src/views/space.nim
+index a5cac7b..9078de6 100644
+--- a/src/views/space.nim
++++ b/src/views/space.nim
+@@ -13,9 +13,9 @@ proc renderParticipant(p: SpaceParticipant; role: string): VNode =
+         tdiv(class="participant-name"):
+           strong: text p.displayName
+           if p.isVerified:
+-            tdiv(class="verified-icon blue"):
+-              icon "circle", class="verified-icon-circle", title="Verified account"
+-              icon "ok", class="verified-icon-check", title="Verified account"
++            tdiv(class="verified-icon blue", role="img", `aria-label`="Verified account"):
++              icon "circle", class="verified-icon-circle"
++              icon "ok", class="verified-icon-check"
+           if role.len > 0:
+             span(class="host-badge"): text role
+         span(class="participant-username"): text "@" & p.username
+diff --git a/src/views/timeline.nim b/src/views/timeline.nim
+index 2890dd1..59af719 100644
+--- a/src/views/timeline.nim
++++ b/src/views/timeline.nim
+@@ -39,7 +39,7 @@ proc getSearchMaxId(results: Timeline; path: string): string =
+ 
+ proc renderToTop*(focus="#"): VNode =
+   buildHtml(tdiv(class="top-ref")):
+-    icon "down", href=focus
++    icon "down", title="Back to top", href=focus
+ 
+ proc renderNewer*(query: Query; path: string; focus=""): VNode =
+   let
+diff --git a/src/views/tweet.nim b/src/views/tweet.nim
+index 8971ab8..096a36c 100644
+--- a/src/views/tweet.nim
++++ b/src/views/tweet.nim
+@@ -136,7 +136,7 @@ proc renderVideoAttachment(videoData: Video; prefs: Prefs; path=""; bigThumb=fal
+       let dlUrl = getVideoDownloadUrl(videoData)
+       if dlUrl.len > 0:
+         a(class="video-download", href=dlUrl, download="",
+-          title="Download video"): icon "download-alt"
++          title="Download video", `aria-label`="Download video"): icon "download-alt"
+ 
+ proc renderVideo*(video: Video; prefs: Prefs; path: string; bigThumb=false): VNode =
+   let hasCardContent = video.description.len > 0 or video.title.len > 0
+-- 
+2.55.0
+
