@@ -1,7 +1,7 @@
 From 238a1b30235933edc29588f527bdbc0a1f226d13 Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 18:56:37 +0000
-Subject: [PATCH 08/15] a11y: Give icon-only controls accessible names
+Subject: [PATCH 08/11] a11y: Give icon-only controls accessible names
 
 Navbar icons and search submit buttons relied on `title` or empty
 content, so assistive tech read them as unlabeled. Derive aria-labels

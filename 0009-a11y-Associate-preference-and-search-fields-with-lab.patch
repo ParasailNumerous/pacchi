@@ -1,7 +1,7 @@
 From a7599ce3d2486fcc95f9239c119b5cf37826d3af Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 18:57:04 +0000
-Subject: [PATCH 09/15] a11y: Associate preference and search fields with
+Subject: [PATCH 09/11] a11y: Associate preference and search fields with
  labels
 
 Generated labels used `for` but the controls had no matching `id`, so

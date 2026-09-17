@@ -1,22 +1,19 @@
-From 62b9b4a9cd4e790e96d04ba0c3b8741a712f0db4 Mon Sep 17 00:00:00 2001
+From 44384a8d2660f6cf6d22eb0a3fcc7babe6592988 Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 21:10:13 +0000
-Subject: [PATCH 15/15] style: add pacchi theme ported to Material Symbols
+Subject: [PATCH 11/11] style: add pacchi theme
 
-Use ligature hide for search button and grid centering for nav
-icons (material-symbols + vendored X SVG) instead of fontello
-::before glyph hacks.
 ---
- public/css/themes/pacchi.css | 736 +++++++++++++++++++++++++++++++++++
- 1 file changed, 736 insertions(+)
+ public/css/themes/pacchi.css | 805 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 805 insertions(+)
  create mode 100644 public/css/themes/pacchi.css
 
 diff --git a/public/css/themes/pacchi.css b/public/css/themes/pacchi.css
 new file mode 100644
-index 0000000..0b556c5
+index 0000000..a65833d
 --- /dev/null
 +++ b/public/css/themes/pacchi.css
-@@ -0,0 +1,736 @@
+@@ -0,0 +1,805 @@
 +body {
 +    --pacchi-sys-color-background: #fff8f6;
 +    --pacchi-sys-color-on-background: #231918;
@@ -182,6 +179,75 @@ index 0000000..0b556c5
 +    }
 +}
 +
++/* View transition start */
++@view-transition {
++    navigation: auto;
++}
++
++::view-transition-old(root),
++::view-transition-new(root) {
++    animation-timing-function: cubic-bezier(0.31, 0.94, 0.34, 1.00);
++    animation-duration: 150ms;
++}
++
++::view-transition-old(timeline-container-first-level-active-tab),
++::view-transition-new(timeline-container-first-level-active-tab),
++::view-transition-old(timeline-container-second-level-active-tab),
++::view-transition-new(timeline-container-second-level-active-tab),
++::view-transition-old(jump-off-search-bar),
++::view-transition-new(jump-off-search-bar) {
++    height: 100%;
++}
++
++::view-transition-group(*) {
++    animation-duration: .5s;
++    /* mod: zero bounce */
++    animation-timing-function: cubic-bezier(0.27, 1.00, 0.18, 1.00);
++}
++
++.timeline-container .tab:nth-child(1),
++.timeline-container .tab:nth-child(2) {
++    .tab-item {
++        &.active {
++            position: relative;
++
++            a {
++                border-bottom-color: transparent;
++            }
++
++            &::after {
++                content: "";
++                width: 100%;
++                height: 2px;
++                background: var(--pacchi-sys-color-primary);
++                position: absolute;
++                inset-inline: 0;
++                bottom: 0;
++            }
++        }
++    }
++
++    &:nth-child(1) .tab-item.active::after {
++        view-transition-name: timeline-container-first-level-active-tab;
++    }
++
++    &:nth-child(2) .tab-item.active::after {
++        view-transition-name: timeline-container-second-level-active-tab;
++    }
++}
++
++.panel-container .search-bar,
++#content>.timeline-container .timeline-header .search-field,
++.search-bar-nav {
++    view-transition-name: jump-off-search-bar;
++}
++
++.timeline {
++    view-transition-name: timeline;
++}
++
++/* View transition end  */
++
 +input,
 +button,
 +select {
@@ -239,9 +305,12 @@ index 0000000..0b556c5
 +                background: currentColor
 +            }
 +
-+            /* search button uses ::after mask; hide ligature */
-+            .material-symbols-outlined {
++            .icon-search {
 +                display: none;
++            }
++
++            .icon-search::before {
++                transform: scale(1.5);
 +            }
 +        }
 +    }
@@ -297,15 +366,15 @@ index 0000000..0b556c5
 +    }
 +
 +    /*{
-+        display: inline;
-+        background-color: var(--bg_elements);
-+        color: var(--fg_color);
-+        border: 1px solid var(--accent_border);
-+        padding: 1px 1px 2px 4px;
-+        font-size: 14px;
-+        cursor: pointer;
-+        margin-bottom: 2px;
-+    }*/
++    display: inline;
++    background-color: var(--bg_elements);
++    color: var(--fg_color);
++    border: 1px solid var(--accent_border);
++    padding: 1px 1px 2px 4px;
++    font-size: 14px;
++    cursor: pointer;
++    margin-bottom: 2px;
++}*/
 +}
 +
 +.search-field #search-panel-toggle {
@@ -592,19 +661,16 @@ index 0000000..0b556c5
 +    }
 +
 +    .icon-container a {
-+        display: grid;
-+        place-items: center;
++        display: block;
 +        margin: 0;
 +        width: 48px;
 +        height: 100%;
 +        border-radius: 50%;
 +        --focus-ring-offset: -2px;
 +
-+        .material-symbols-outlined,
-+        .icon-svg {
-+            font-size: 24px;
-+            width: 24px;
-+            height: 24px;
++        &::before {
++            transform: scale(1.5);
++            margin-inline-end: 1rem;
 +        }
 +
 +        @media (hover: hover) {
