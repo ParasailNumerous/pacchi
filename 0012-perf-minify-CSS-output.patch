@@ -1,0 +1,26 @@
+From 462376192d28d4476a6ea11b320b3dcb577580ed Mon Sep 17 00:00:00 2001
+From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
+Date: Fri, 18 Sep 2026 04:25:32 +0000
+Subject: [PATCH 12/12] perf: minify CSS output
+
+Compress CSS output by passing Compressed parameter to
+Dart Sass.
+---
+ tools/gencss.nim | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/tools/gencss.nim b/tools/gencss.nim
+index ed3aa3c..723b3ff 100644
+--- a/tools/gencss.nim
++++ b/tools/gencss.nim
+@@ -2,6 +2,7 @@ import sass
+ 
+ compileFile("src/sass/index.scss",
+             outputPath = "public/css/style.css",
++            outputStyle = Compressed,
+             includePaths = @["src/sass/include"])
+ 
+ echo "Compiled to public/css/style.css"
+-- 
+2.55.0
+

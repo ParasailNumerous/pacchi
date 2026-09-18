@@ -1,7 +1,7 @@
-From a2687191255b6d5f967fa1f37a190fe45145d690 Mon Sep 17 00:00:00 2001
+From 5b55a5ec60d38c54622fdf49c0f334484e559299 Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 18:55:08 +0000
-Subject: [PATCH 06/11] a11y: Keep CSS toggles keyboard-reachable
+Subject: [PATCH 06/12] a11y: Keep CSS toggles keyboard-reachable
 
 The search-filter and photo-rail disclosures hid their checkbox with
 `display: none`, removing it from the tab order. Hide it visually

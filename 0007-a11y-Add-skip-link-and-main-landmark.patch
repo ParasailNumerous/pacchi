@@ -1,7 +1,7 @@
-From 67af61569e424f0911e62467c09cb4f9080b7f3a Mon Sep 17 00:00:00 2001
+From 44b3996ed3f32924b92f4880b1c82e80123605a4 Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 18:55:13 +0000
-Subject: [PATCH 07/11] a11y: Add skip link and main landmark
+Subject: [PATCH 07/12] a11y: Add skip link and main landmark
 
 Wrap the page content in <main> and add a skip link that appears on
 focus, so keyboard and screen-reader users can bypass the navbar.

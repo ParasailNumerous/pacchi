@@ -1,7 +1,7 @@
-From c12621f78ae826c2c0ce41cf874face46a9f3c28 Mon Sep 17 00:00:00 2001
+From 4eecd038c9539e75af5c0d579d50914bc5834ba9 Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 18:52:40 +0000
-Subject: [PATCH 03/11] style: Adopt modern-normalize for base styles
+Subject: [PATCH 03/12] style: Adopt modern-normalize for base styles
 
 Vendor modern-normalize v3.0.1 and load it before the project styles
 so the reset has a maintained, predictable baseline.
