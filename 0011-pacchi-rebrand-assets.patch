@@ -1,7 +1,7 @@
-From 3aa5bdaf0f472811268f94aabe0eabe3d88dc12f Mon Sep 17 00:00:00 2001
+From f16be1c51ae16059d8619bfc31be817ef1a53194 Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 13:26:47 +0000
-Subject: [PATCH 01/12] pacchi: rebrand assets
+Subject: [PATCH 11/13] pacchi: rebrand assets
 
 ---
  public/android-chrome-192x192.png | Bin 2861 -> 73696 bytes
@@ -19124,6 +19124,5 @@ z!Q6nDN+dfaUOo$p91WBNYN!-Yqaw+6PF@)-M}r^9ceY@*mJ^Lri&k3pBDYNOJ8r!I
 z!9;vDgaKD(sEZB;V$ai;k4(r<w0-GTlQX%fJhb-V`iHm6hPKQ8>7}urcYbLBJ>E*Q
 Z4`ZM_q9GwGGZpMQMsY!T{zz^^$4{-3>C6BC
 
--- 
+--
 2.55.0
-

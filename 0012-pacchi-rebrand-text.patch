@@ -1,7 +1,7 @@
-From a30142036eea97f84c71276387d95badf00ee74b Mon Sep 17 00:00:00 2001
+From 8a887cd99786ab33499c3216340410ffd1175dde Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 14:28:44 +0000
-Subject: [PATCH 02/12] pacchi: rebrand text
+Subject: [PATCH 12/13] pacchi: rebrand text
 
 ---
  public/md/about.md      | 11 ++++++-----
@@ -17,41 +17,41 @@ index c8ba04f..09102b9 100644
 +++ b/public/md/about.md
 @@ -1,8 +1,9 @@
  # About
- 
+
 -Nitter is a free and open source alternative Twitter front-end focused on
 +Pacchi is a free and open source alternative Twitter front-end focused on
  privacy and performance. The source is available at
  <https://codeberg.org/mv12star/shitter>
 +. Git patches applied for this instance are at <https://github.com/ParasailNumerous/pacchi>
- 
+
  - No JavaScript or ads
  - All requests go through the backend, client never talks to Twitter
 @@ -13,12 +14,12 @@ privacy and performance. The source is available at
  - Themes
  - Mobile support (responsive design)
- 
+
 -Nitter's wiki contains
 +Pacchi's wiki contains
  [instances](https://codeberg.org/mv12star/shitter/wiki/Instances) and
  [browser extensions](https://codeberg.org/mv12star/shitter/wiki/Extensions)
  maintained by the community.
- 
+
 -## Why use Nitter?
 +## Why use Pacchi?
- 
+
  It's impossible to use Twitter without JavaScript enabled, and as of 2024 you
  need to sign up. For privacy-minded folks, preventing JavaScript analytics and
 @@ -31,9 +32,9 @@ particularly important after Twitter [removed the
  ability](https://www.eff.org/deeplinks/2020/04/twitter-removes-privacy-option-and-shows-why-we-need-strong-privacy-laws)
  for users to control whether their data gets sent to advertisers.
- 
+
 -Using an instance of Nitter (hosted on a VPS for example), you can browse
 +Using an instance of Pacchi (hosted on a VPS for example), you can browse
  Twitter without JavaScript while retaining your privacy. In addition to
 -respecting your privacy, Nitter is on average around 15 times lighter than
 +respecting your privacy, Pacchi is on average around 15 times lighter than
  Twitter, and in most cases serves pages faster (eg. timelines load 2-4x faster).
- 
+
  In the future a simple account system will be added that lets you follow Twitter
 diff --git a/public/site.webmanifest b/public/site.webmanifest
 index 5ee0906..c3fdaae 100644
@@ -67,18 +67,18 @@ index 5ee0906..c3fdaae 100644
          {
              "src": "/android-chrome-192x192.png",
 diff --git a/src/prefs_impl.nim b/src/prefs_impl.nim
-index 8519bd5..592ce87 100644
+index 25d0a95..9b03726 100644
 --- a/src/prefs_impl.nim
 +++ b/src/prefs_impl.nim
 @@ -116,8 +116,8 @@ genPrefs:
- 
+
    "Link replacements (blank to disable)":
      replaceTwitter(input, ""):
 -      "Twitter -> Nitter"
 -      placeholder: "Nitter hostname"
 +      "Twitter -> Pacchi"
 +      placeholder: "Pacchi hostname"
- 
+
      replaceYouTube(input, ""):
        "YouTube -> Piped/Invidious"
 diff --git a/src/views/feature.nim b/src/views/feature.nim
@@ -99,7 +99,7 @@ index 15989a4..20ba2c5 100644
 +      text "To find out more about the Pacchi project, see the "
        a(href="/about"): text "About page"
 diff --git a/src/views/general.nim b/src/views/general.nim
-index 2254dd9..48f4623 100644
+index 9745882..2cc9810 100644
 --- a/src/views/general.nim
 +++ b/src/views/general.nim
 @@ -101,7 +101,7 @@ proc renderHead*(prefs: Prefs; cfg: Config; req: Request; titleText=""; desc="";
@@ -109,8 +109,7 @@ index 2254dd9..48f4623 100644
 -    meta(property="og:site_name", content="Nitter")
 +    meta(property="og:site_name", content="Pacchi")
      meta(property="og:locale", content="en_US")
- 
-     if banner.len > 0 and not banner.startsWith('#'):
--- 
-2.55.0
 
+     if banner.len > 0 and not banner.startsWith('#'):
+--
+2.55.0

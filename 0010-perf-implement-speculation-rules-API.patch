@@ -1,0 +1,65 @@
+From 154d6e03ffdb2d0e5ab54959d34d8d0046874eaf Mon Sep 17 00:00:00 2001
+From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
+Date: Mon, 21 Sep 2026 17:10:41 +0000
+Subject: [PATCH 10/13] perf: implement speculation rules API Implements the
+ Speculation Rules API to speed up tab navigations. See
+ https://developer.chrome.com/docs/web-platform/prerender-pages
+
+---
+ src/views/general.nim | 41 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
+
+diff --git a/src/views/general.nim b/src/views/general.nim
+index b8a92c5..9745882 100644
+--- a/src/views/general.nim
++++ b/src/views/general.nim
+@@ -135,6 +135,47 @@ proc renderHead*(prefs: Prefs; cfg: Config; req: Request; titleText=""; desc="";
+     link(rel="preload", type="font/woff2", `as`="font",
+          href="/fonts/fontello.woff2?59696369", crossorigin="anonymous")
+
++    verbatim """<script type="speculationrules">{
++  "prerender": [
++    {
++      "tag": "tabs",
++      "where": {
++        "and": [
++          { "href_matches": "/*" },
++          { "or": [
++            { "selector_matches": ".tab a" },
++            { "selector_matches": ".reply-sort-option a" }
++          ]}
++        ]
++      },
++      "eagerness": "moderate"
++    },
++    {
++      "tag": "search-top-hits",
++      "where": {
++        "and": [
++          { "href_matches": "/*" },
++          { "selector_matches": ".timeline .timeline-item:nth-child(-n+3) a" }
++        ]
++      },
++      "eagerness": "moderate"
++    }
++  ],
++  "prefetch": [
++    {
++      "tag": "blanket",
++      "where": {
++        "and": [
++          { "href_matches": "/*" },
++          { "not": { "href_matches": "/pic/*" }},
++          { "not": { "href_matches": "/video/*" }}
++        ]
++      },
++      "eagerness": "conservative"
++    }
++  ]
++}</script>"""
++
+ proc renderMain*(body: VNode; req: Request; cfg: Config; prefs=defaultPrefs;
+                  titleText=""; desc=""; ogTitle=""; rss=""; video="";
+                  images: seq[string] = @[]; banner="";
+--
+2.55.0

@@ -1,7 +1,7 @@
-From 5b55a5ec60d38c54622fdf49c0f334484e559299 Mon Sep 17 00:00:00 2001
+From 5fd1ed9f54878ac101f65b01c0ba884a728f6215 Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 18:55:08 +0000
-Subject: [PATCH 06/12] a11y: Keep CSS toggles keyboard-reachable
+Subject: [PATCH 03/13] a11y: Keep CSS toggles keyboard-reachable
 
 The search-filter and photo-rail disclosures hid their checkbox with
 `display: none`, removing it from the tab order. Hide it visually
@@ -17,7 +17,7 @@ index 5fde51a..7ad2a8b 100644
 +++ b/src/sass/include/_mixins.css
 @@ -1,5 +1,17 @@
  @import '_variables';
- 
+
 +@mixin visually-hidden {
 +    position: absolute;
 +    clip-path: inset(50%);
@@ -34,7 +34,7 @@ index 5fde51a..7ad2a8b 100644
      max-width: $max-width;
      margin: 0 auto;
 @@ -73,7 +85,12 @@
- 
+
  @mixin create-toggle($elem, $height) {
      ##{$elem}-toggle {
 -        display: none;
@@ -44,7 +44,7 @@ index 5fde51a..7ad2a8b 100644
 +            outline: 2px solid var(--accent);
 +            outline-offset: 2px;
 +        }
- 
+
          &:checked ~ .#{$elem} {
              max-height: $height;
 diff --git a/src/sass/inputs.scss b/src/sass/inputs.scss
@@ -54,7 +54,7 @@ index 2b6016f..c3beb52 100644
 @@ -158,6 +158,11 @@ input::-webkit-datetime-edit-year-field:focus {
    }
  }
- 
+
 +.checkbox-container input:focus-visible ~ .checkbox {
 +  outline: 2px solid var(--accent);
 +  outline-offset: 1px;
@@ -63,6 +63,5 @@ index 2b6016f..c3beb52 100644
  .pref-group {
    display: inline;
  }
--- 
+--
 2.55.0
-

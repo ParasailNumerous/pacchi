@@ -1,7 +1,7 @@
-From 44b3996ed3f32924b92f4880b1c82e80123605a4 Mon Sep 17 00:00:00 2001
+From b039bcd76f971c2e6666db79dd21ac4e42ed8036 Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 18:55:13 +0000
-Subject: [PATCH 07/12] a11y: Add skip link and main landmark
+Subject: [PATCH 04/13] a11y: Add skip link and main landmark
 
 Wrap the page content in <main> and add a skip link that appears on
 focus, so keyboard and screen-reader users can bypass the navbar.
@@ -34,21 +34,20 @@ index e02ea06..60252fd 100644
 +  }
 +}
 diff --git a/src/views/general.nim b/src/views/general.nim
-index 48f4623..fa4fe81 100644
+index cf549ea..813d2a5 100644
 --- a/src/views/general.nim
 +++ b/src/views/general.nim
-@@ -148,9 +148,10 @@ proc renderMain*(body: VNode; req: Request; cfg: Config; prefs=defaultPrefs;
- 
+@@ -150,9 +150,10 @@ proc renderMain*(body: VNode; req: Request; cfg: Config; prefs=defaultPrefs;
+
      let bodyClass = if prefs.stickyNav: "fixed-nav" else: ""
      body(class=bodyClass):
 +      a(class="skip-link", href="#content"): text "Skip to content"
        renderNavbar(cfg, req, rss, twitterLink)
- 
+
 -      tdiv(class="container"):
 +      main(id="content", tabindex="-1", class="container"):
          body
- 
-   result = doctype & $node
--- 
-2.55.0
 
+   result = doctype & $node
+--
+2.55.0

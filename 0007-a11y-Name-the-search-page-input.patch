@@ -1,7 +1,7 @@
-From 73f95e42a0def3d065109dc11dab7a7bf43f18c2 Mon Sep 17 00:00:00 2001
+From f7311f424062099b9d7ebf3230c4c19b799fd0e7 Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 18:59:45 +0000
-Subject: [PATCH 10/12] a11y: Name the search page input
+Subject: [PATCH 07/13] a11y: Name the search page input
 
 The standalone /search page still rendered a placeholder-only input.
 Give it an aria-label like the navbar field.
@@ -20,8 +20,7 @@ index 48fc06c..170b2d7 100644
 -              placeholder="Search...", dir="auto")
 +              placeholder="Search...", dir="auto", `aria-label`="Search")
          button(`type`="submit", `aria-label`="Search"): icon "search"
- 
- proc renderProfileTabs*(query: Query; username: string): VNode =
--- 
-2.55.0
 
+ proc renderProfileTabs*(query: Query; username: string): VNode =
+--
+2.55.0

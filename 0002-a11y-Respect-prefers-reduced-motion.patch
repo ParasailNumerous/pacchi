@@ -1,7 +1,7 @@
-From 36a20bf34de2c0cd81a6f41887e3e0d3f1881b53 Mon Sep 17 00:00:00 2001
+From dc1b78a159dd4701d4e76cf13bf4010555cf3b38 Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 18:54:58 +0000
-Subject: [PATCH 05/12] a11y: Respect prefers-reduced-motion
+Subject: [PATCH 02/13] a11y: Respect prefers-reduced-motion
 
 Honor the OS setting by collapsing animation and transition durations
 for users who ask for less motion.
@@ -27,6 +27,5 @@ index 78bc959..e02ea06 100644
 +    transition-duration: 0.01ms !important;
 +  }
 +}
--- 
+--
 2.55.0
-
