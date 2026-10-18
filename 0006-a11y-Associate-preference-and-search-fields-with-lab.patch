@@ -1,7 +1,7 @@
-From 203e1cfd9069b921f1e82b7522e26f8a0b37d44f Mon Sep 17 00:00:00 2001
+From 41b1b52ce397908337939c5c60ad0a5311c4bee8 Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 18:57:04 +0000
-Subject: [PATCH 06/13] a11y: Associate preference and search fields with
+Subject: [PATCH 06/14] a11y: Associate preference and search fields with
  labels
 
 Generated labels used `for` but the controls had no matching `id`, so
@@ -26,12 +26,12 @@ index 60252fd..67dcd90 100644
 +  @include visually-hidden;
 +}
 diff --git a/src/views/renderutils.nim b/src/views/renderutils.nim
-index 02dc506..9db5251 100644
+index 09bb43e..387b35f 100644
 --- a/src/views/renderutils.nim
 +++ b/src/views/renderutils.nim
 @@ -81,9 +81,9 @@ proc buttonReferer*(action, text, path: string; class=""; `method`="post"): VNod
        text text
-
+ 
  proc genCheckbox*(pref, label: string; state: bool): VNode =
 -  buildHtml(label(class="pref-group checkbox-container", title=pref)):
 +  buildHtml(label(`for`=pref, class="pref-group checkbox-container", title=pref)):
@@ -39,7 +39,7 @@ index 02dc506..9db5251 100644
 -    input(name=pref, `type`="checkbox", checked=state)
 +    input(name=pref, id=pref, `type`="checkbox", checked=state)
      span(class="checkbox")
-
+ 
  proc genInput*(pref, label, state, placeholder: string; class=""; autofocus=true): VNode =
 @@ -91,19 +91,22 @@ proc genInput*(pref, label, state, placeholder: string; class=""; autofocus=true
    buildHtml(tdiv(class=("pref-group pref-input " & class), title=pref)):
@@ -49,7 +49,7 @@ index 02dc506..9db5251 100644
 +    elif p.len > 0:
 +      label(`for`=pref, class="visually-hidden"): text p
 +    input(name=pref, id=pref, `type`="text", placeholder=p, value=state, autofocus=(autofocus and state.len == 0))
-
+ 
  proc genSelect*(pref, label, state: string; options: seq[string]): VNode =
    buildHtml(tdiv(class="pref-group pref-input", title=pref)):
      label(`for`=pref): text label
@@ -58,14 +58,14 @@ index 02dc506..9db5251 100644
        for opt in options:
          option(value=opt, selected=(opt == state)):
            text opt
-
+ 
  proc genDate*(pref, state: string): VNode =
    buildHtml(span(class="date-input")):
 -    input(name=pref, `type`="date", value=state)
 +    input(name=pref, id=pref, `type`="date", value=state,
 +          `aria-label`=(if pref.len > 0: capitalizeAscii(pref) else: ""))
      icon "calendar"
-
+ 
  proc genNumberInput*(pref, label, state, placeholder: string; class=""; autofocus=true; min="0"): VNode =
 @@ -111,7 +114,9 @@ proc genNumberInput*(pref, label, state, placeholder: string; class=""; autofocu
    buildHtml(tdiv(class=("pref-group pref-input " & class))):
@@ -75,8 +75,9 @@ index 02dc506..9db5251 100644
 +    elif p.len > 0:
 +      label(`for`=pref, class="visually-hidden"): text p
 +    input(name=pref, id=pref, `type`="number", placeholder=p, value=state, autofocus=(autofocus and state.len == 0), min=min, step="1")
-
+ 
  proc genImg*(url: string; proxy: bool; class=""; alt=""): VNode =
    buildHtml():
---
-2.55.0
+-- 
+2.56.0
+

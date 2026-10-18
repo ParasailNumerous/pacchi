@@ -1,7 +1,7 @@
-From 545d741a907f7adddab6840a057a6eea7c2b311a Mon Sep 17 00:00:00 2001
+From 5c26f5dcdabfb70ceb2d4da74a8ee081d15a822e Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 21:10:13 +0000
-Subject: [PATCH 13/13] style: add pacchi theme
+Subject: [PATCH 14/14] style: add pacchi theme
 
 ---
  public/css/themes/pacchi.css | 854 +++++++++++++++++++++++++++++++++++
@@ -10,7 +10,7 @@ Subject: [PATCH 13/13] style: add pacchi theme
 
 diff --git a/public/css/themes/pacchi.css b/public/css/themes/pacchi.css
 new file mode 100644
-index 0000000..8057e03
+index 0000000..3c8b7ff
 --- /dev/null
 +++ b/public/css/themes/pacchi.css
 @@ -0,0 +1,854 @@
@@ -412,7 +412,7 @@ index 0000000..8057e03
 +
 +        @media (hover: hover) {
 +            &:hover {
-+                background-color: color-mix(in srgb, var(--pacchi-sys-color-on-surface) 8%, var(--pacchi-sysw-color-surface));
++                background-color: color-mix(in srgb, var(--pacchi-sys-color-on-surface) 8%, var(--pacchi-sys-color-surface));
 +            }
 +        }
 +
@@ -869,5 +869,6 @@ index 0000000..8057e03
 +    }
 +}
 \ No newline at end of file
---
-2.55.0
+-- 
+2.56.0
+

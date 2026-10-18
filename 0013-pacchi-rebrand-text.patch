@@ -1,0 +1,39 @@
+From 23e0480890b57e905ce19613ac50cb64f2799588 Mon Sep 17 00:00:00 2001
+From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
+Date: Thu, 17 Sep 2026 14:28:44 +0000
+Subject: [PATCH 13/14] pacchi: rebrand text
+
+---
+ public/site.webmanifest | 4 ++--
+ src/views/general.nim   | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/public/site.webmanifest b/public/site.webmanifest
+index 5ee0906..c3fdaae 100644
+--- a/public/site.webmanifest
++++ b/public/site.webmanifest
+@@ -1,6 +1,6 @@
+ {
+-    "name": "Nitter",
+-    "short_name": "Nitter",
++    "name": "Pacchi",
++    "short_name": "Pacchi",
+     "icons": [
+         {
+             "src": "/android-chrome-192x192.png",
+diff --git a/src/views/general.nim b/src/views/general.nim
+index b8a92c5..67ad7f1 100644
+--- a/src/views/general.nim
++++ b/src/views/general.nim
+@@ -101,7 +101,7 @@ proc renderHead*(prefs: Prefs; cfg: Config; req: Request; titleText=""; desc="";
+     meta(property="og:type", content=ogType)
+     meta(property="og:title", content=(if ogTitle.len > 0: ogTitle else: titleText))
+     meta(property="og:description", content=stripHtml(desc))
+-    meta(property="og:site_name", content="Nitter")
++    meta(property="og:site_name", content="Pacchi")
+     meta(property="og:locale", content="en_US")
+ 
+     if banner.len > 0 and not banner.startsWith('#'):
+-- 
+2.56.0
+

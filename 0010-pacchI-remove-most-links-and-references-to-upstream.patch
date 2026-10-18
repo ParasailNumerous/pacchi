@@ -1,0 +1,170 @@
+From f46f79676957c3247b8b72280c2d4e309986be2e Mon Sep 17 00:00:00 2001
+From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
+Date: Sun, 18 Oct 2026 14:14:40 +0000
+Subject: [PATCH 10/14] pacchI: remove most links and references to upstream
+
+---
+ public/md/about.md    | 20 ++++------------
+ src/nitter.nim        |  4 ++--
+ src/views/about.nim   | 56 +++++++++++++++++++++----------------------
+ src/views/feature.nim | 14 +++++------
+ 4 files changed, 42 insertions(+), 52 deletions(-)
+
+diff --git a/public/md/about.md b/public/md/about.md
+index 7f2e3b3..0f938ad 100644
+--- a/public/md/about.md
++++ b/public/md/about.md
+@@ -1,8 +1,7 @@
+ # About
+ 
+-Nitter is a free and open source alternative Twitter front-end focused on
+-privacy and performance. The source is available at
+-<https://codeberg.org/shitter/shitter>
++Pacchi is a free and open source alternative Twitter front-end focused on
++privacy and performance. Source available at [pacchi](https://github.com/ParasailNumerous/pacchi).
+ 
+ - No JavaScript or ads
+ - All requests go through the backend, client never talks to Twitter
+@@ -13,12 +12,7 @@ privacy and performance. The source is available at
+ - Themes
+ - Mobile support (responsive design)
+ 
+-Nitter's wiki contains
+-[instances](https://codeberg.org/shitter/shitter/wiki/Instances) and
+-[browser extensions](https://codeberg.org/shitter/shitter/wiki/Extensions)
+-maintained by the community.
+-
+-## Why use Nitter?
++## Why use Pacchi?
+ 
+ It's impossible to use Twitter without JavaScript enabled, and as of 2024 you
+ need to sign up. For privacy-minded folks, preventing JavaScript analytics and
+@@ -31,15 +25,11 @@ particularly important after Twitter [removed the
+ ability](https://www.eff.org/deeplinks/2020/04/twitter-removes-privacy-option-and-shows-why-we-need-strong-privacy-laws)
+ for users to control whether their data gets sent to advertisers.
+ 
+-Using an instance of Nitter (hosted on a VPS for example), you can browse
++Using an instance of Pacchi (hosted on a VPS for example), you can browse
+ Twitter without JavaScript while retaining your privacy. In addition to
+-respecting your privacy, Nitter is on average around 15 times lighter than
++respecting your privacy, Pacchi is on average around 15 times lighter than
+ Twitter, and in most cases serves pages faster (eg. timelines load 2-4x faster).
+ 
+ In the future a simple account system will be added that lets you follow Twitter
+ users, allowing you to have a clean chronological timeline without needing a
+ Twitter account.
+-
+-## Contact
+-
+-Feel free to join our [Matrix channel](https://matrix.to/#/#libre-offtopic:tchncs.de).
+diff --git a/src/nitter.nim b/src/nitter.nim
+index 46955d1..a0b9f7d 100644
+--- a/src/nitter.nim
++++ b/src/nitter.nim
+@@ -12,8 +12,8 @@ import routes/[
+   preferences, timeline, status, media, search, rss, list, community, debug,
+   unsupported, embed, resolver, broadcast, space, article, router_utils]
+ 
+-const instancesUrl = "https://codeberg.org/shitter/shitter/wiki/Instances"
+-const issuesUrl = "https://codeberg.org/shitter/shitter/issues"
++const instancesUrl = "https://example.com"
++const issuesUrl = "https://example.com"
+ 
+ let
+   configPath = getEnv("NITTER_CONF_FILE", "./nitter.conf")
+diff --git a/src/views/about.nim b/src/views/about.nim
+index ffa0147..7c169af 100644
+--- a/src/views/about.nim
++++ b/src/views/about.nim
+@@ -1,30 +1,30 @@
+ # SPDX-License-Identifier: AGPL-3.0-only
+-import os, strutils, strformat
++import os
+ import karax/[karaxdsl, vdom]
+ 
+-# The version is read from git at compile time. It can optionally be overridden
+-# with -d:gitHash=... / -d:gitDate=... (e.g. when building without a .git dir).
+-const
+-  gitHash {.strdefine.} = ""
+-  gitDate {.strdefine.} = ""
+-
+-proc gitMeta(cmd: string): string {.compileTime.} =
+-  let res = gorgeEx(cmd)
+-  if res.exitCode == 0: res.output.strip() else: "unknown"
+-
+-when gitHash.len > 0:
+-  const hash = gitHash
+-else:
+-  const hash = gitMeta("git show -s --format=\"%h\"")
+-
+-when gitDate.len > 0:
+-  const date = gitDate
+-else:
+-  const date = gitMeta("git show -s --format=\"%cd\" --date=format:\"%Y.%m.%d\"")
+-
+-const
+-  link = "https://codeberg.org/shitter/shitter/commit/" & hash
+-  version = &"{date}-{hash}"
++# # The version is read from git at compile time. It can optionally be overridden
++# # with -d:gitHash=... / -d:gitDate=... (e.g. when building without a .git dir).
++# const
++#   gitHash {.strdefine.} = ""
++#   gitDate {.strdefine.} = ""
++# 
++# proc gitMeta(cmd: string): string {.compileTime.} =
++#   let res = gorgeEx(cmd)
++#   if res.exitCode == 0: res.output.strip() else: "unknown"
++# 
++# when gitHash.len > 0:
++#   const hash = gitHash
++# else:
++#   const hash = gitMeta("git show -s --format=\"%h\"")
++# 
++# when gitDate.len > 0:
++#   const date = gitDate
++# else:
++#   const date = gitMeta("git show -s --format=\"%cd\" --date=format:\"%Y.%m.%d\"")
++
++# const
++#   link = "https://example.com/commit/" & hash
++#   version = &"{date}-{hash}"
+ 
+ var aboutHtml: string
+ 
+@@ -38,7 +38,7 @@ proc initAboutPage*(dir: string) =
+ proc renderAbout*(): VNode =
+   buildHtml(tdiv(class="overlay-panel")):
+     verbatim aboutHtml
+-    h2: text "Instance info"
+-    p:
+-      text "Version "
+-      a(href=link): text version
++#   h2: text "Instance info"
++#   p:
++#     text "Version "
++#     a(href=link): text version
+diff --git a/src/views/feature.nim b/src/views/feature.nim
+index c34d3f5..952e90a 100644
+--- a/src/views/feature.nim
++++ b/src/views/feature.nim
+@@ -5,10 +5,10 @@ proc renderFeature*(): VNode =
+   buildHtml(tdiv(class="overlay-panel")):
+     h1: text "Unsupported feature"
+     p:
+-      text "Nitter doesn't support this feature yet, but it might in the future. "
+-      text "You can check for an issue and open one if needed here: "
+-      a(href="https://codeberg.org/shitter/shitter/issues"):
+-        text "https://codeberg.org/shitter/shitter/issues"
+-    p:
+-      text "To find out more about the Nitter project, see the "
+-      a(href="/about"): text "About page"
++      text "Pacchi doesn't support this feature."
++#      text "You can check for an issue and open one if needed here: "
++#      a(href="https://codeberg.org/shitter/shitter/issues"):
++#        text "https://codeberg.org/shitter/shitter/issues"
++#    p:
++#      text "To find out more about the Pacchi project, see the "
++#      a(href="/about"): text "About page"
+-- 
+2.56.0
+

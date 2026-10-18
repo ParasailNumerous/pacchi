@@ -1,0 +1,131 @@
+From 53887a8373d432c93a59162aa94c6092a75f52dd Mon Sep 17 00:00:00 2001
+From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
+Date: Sun, 18 Oct 2026 14:19:54 +0000
+Subject: [PATCH 11/14] pacchi: remove most main site references
+
+---
+ public/md/about.md        | 20 ++++++++++----------
+ public/robots.txt         |  2 --
+ src/parser.nim            |  2 +-
+ src/prefs_impl.nim        |  4 ++--
+ src/views/opensearch.nimf |  2 +-
+ src/views/rss.nimf        |  2 +-
+ 6 files changed, 15 insertions(+), 17 deletions(-)
+
+diff --git a/public/md/about.md b/public/md/about.md
+index 0f938ad..08255f9 100644
+--- a/public/md/about.md
++++ b/public/md/about.md
+@@ -1,12 +1,12 @@
+ # About
+ 
+-Pacchi is a free and open source alternative Twitter front-end focused on
++Pacchi is a free and open source alternative "Website" front-end focused on
+ privacy and performance. Source available at [pacchi](https://github.com/ParasailNumerous/pacchi).
+ 
+ - No JavaScript or ads
+-- All requests go through the backend, client never talks to Twitter
+-- Prevents Twitter from tracking your IP or JavaScript fingerprint
+-- Uses Twitter's unofficial API (no developer account required)
++- All requests go through the backend, client never talks to X
++- Prevents "Website" from tracking your IP or JavaScript fingerprint
++- Uses X's unofficial API (no developer account required)
+ - Lightweight (thanks to [@nim_lang](/nim_lang), 60KB vs 784KB from twitter.com)
+ - RSS feeds
+ - Themes
+@@ -14,22 +14,22 @@ privacy and performance. Source available at [pacchi](https://github.com/Parasai
+ 
+ ## Why use Pacchi?
+ 
+-It's impossible to use Twitter without JavaScript enabled, and as of 2024 you
++It's impossible to use "Website" without JavaScript enabled, and as of 2024 you
+ need to sign up. For privacy-minded folks, preventing JavaScript analytics and
+ IP-based tracking is important, but apart from using a VPN and uBlock/uMatrix,
+ it's impossible. Despite being behind a VPN and using heavy-duty adblockers,
+ you can get accurately tracked with your [browser's
+ fingerprint](https://restoreprivacy.com/browser-fingerprinting/), [no
+ JavaScript required](https://noscriptfingerprint.com/). This all became
+-particularly important after Twitter [removed the
++particularly important after "Website" [removed the
+ ability](https://www.eff.org/deeplinks/2020/04/twitter-removes-privacy-option-and-shows-why-we-need-strong-privacy-laws)
+ for users to control whether their data gets sent to advertisers.
+ 
+ Using an instance of Pacchi (hosted on a VPS for example), you can browse
+-Twitter without JavaScript while retaining your privacy. In addition to
++X without JavaScript while retaining your privacy. In addition to
+ respecting your privacy, Pacchi is on average around 15 times lighter than
+-Twitter, and in most cases serves pages faster (eg. timelines load 2-4x faster).
++X, and in most cases serves pages faster (eg. timelines load 2-4x faster).
+ 
+-In the future a simple account system will be added that lets you follow Twitter
++In the future a simple account system will be added that lets you follow X
+ users, allowing you to have a clean chronological timeline without needing a
+-Twitter account.
++X account.
+diff --git a/public/robots.txt b/public/robots.txt
+index 812656a..e342351 100644
+--- a/public/robots.txt
++++ b/public/robots.txt
+@@ -1,5 +1,3 @@
+ User-agent: *
+ Disallow: /
+ Crawl-delay: 1
+-User-agent: Twitterbot
+-Disallow:
+diff --git a/src/parser.nim b/src/parser.nim
+index ac9fb5e..689bcd3 100644
+--- a/src/parser.nim
++++ b/src/parser.nim
+@@ -455,7 +455,7 @@ proc parseCard(js: JsonNode; urls: JsonNode): Card =
+     let spaceId = vals{"id"}.getStrVal
+     if spaceId.len > 0:
+       result.url = "/i/spaces/" & spaceId
+-      result.title = "Twitter Space"
++      result.title = "Space"
+       result.text = "Click to view Space"
+   of unknown:
+     result.title = "This card type is not supported."
+diff --git a/src/prefs_impl.nim b/src/prefs_impl.nim
+index 0f3b0bd..44c7564 100644
+--- a/src/prefs_impl.nim
++++ b/src/prefs_impl.nim
+@@ -119,8 +119,8 @@ genPrefs:
+ 
+   "Link replacements (blank to disable)":
+     replaceTwitter(input, ""):
+-      "Twitter -> Nitter"
+-      placeholder: "Nitter hostname"
++      "\"Website\" -> Pacchi"
++      placeholder: "Pacchi hostname"
+ 
+     replaceYouTube(input, ""):
+       "YouTube -> Piped/Invidious"
+diff --git a/src/views/opensearch.nimf b/src/views/opensearch.nimf
+index 20919ec..5c610bf 100644
+--- a/src/views/opensearch.nimf
++++ b/src/views/opensearch.nimf
+@@ -6,7 +6,7 @@
+ <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+                        xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+   <ShortName>${name}</ShortName>
+-  <Description>Twitter search via ${hostname}</Description>
++  <Description>Pacchi search via ${hostname}</Description>
+   <InputEncoding>UTF-8</InputEncoding>
+   <Url type="text/html" template="${url}{searchTerms}" />
+ </OpenSearchDescription>
+diff --git a/src/views/rss.nimf b/src/views/rss.nimf
+index 9df2ec1..25098f6 100644
+--- a/src/views/rss.nimf
++++ b/src/views/rss.nimf
+@@ -48,7 +48,7 @@
+ #end proc
+ #
+ #proc getDescription(desc: string; cfg: Config): string =
+-Twitter feed for: ${desc}. Generated by ${getUrlPrefix(cfg)}
++Pacchi feed for: ${desc}. Generated by ${getUrlPrefix(cfg)}
+ #end proc
+ #
+ #proc renderRssMedia(media: Media; tweet: Tweet; urlPrefix: string; prefs: Prefs): string =
+-- 
+2.56.0
+

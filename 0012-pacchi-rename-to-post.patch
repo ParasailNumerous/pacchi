@@ -1,0 +1,140 @@
+From 79b2c25d3ec2ed9979ebefa4993b7c1f0543e68d Mon Sep 17 00:00:00 2001
+From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
+Date: Sun, 18 Oct 2026 14:22:27 +0000
+Subject: [PATCH 12/14] pacchi: rename to "post"
+
+---
+ src/parser.nim        | 2 +-
+ src/routes/embed.nim  | 8 ++++----
+ src/routes/status.nim | 8 ++++----
+ src/views/tweet.nim   | 2 +-
+ tests/test_space.py   | 2 +-
+ tests/test_tweet.py   | 2 +-
+ 6 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/src/parser.nim b/src/parser.nim
+index 689bcd3..a82d2d9 100644
+--- a/src/parser.nim
++++ b/src/parser.nim
+@@ -576,7 +576,7 @@ proc parseGraphTweet*(js: JsonNode): Tweet =
+       return Tweet(text: text.getTombstone)
+     return Tweet()
+   of "TweetPreviewDisplay":
+-    return Tweet(text: "You're unable to view this Tweet because it's only available to the Subscribers of the account owner.")
++    return Tweet(text: "You're unable to view this Post because it's only available to the Subscribers of the account owner.")
+   of "TweetWithVisibilityResults":
+     return parseGraphTweet(js{"tweet"})
+   else:
+diff --git a/src/routes/embed.nim b/src/routes/embed.nim
+index 3461b7d..4ea6234 100644
+--- a/src/routes/embed.nim
++++ b/src/routes/embed.nim
+@@ -55,10 +55,10 @@ proc createEmbedRouter*(cfg: Config) =
+         prefs = requestPrefs()
+ 
+       if tweet == nil:
+-        resp renderErrorEmbed("Tweet not found", prefs, cfg, request, tweetId=id)
++        resp renderErrorEmbed("Post not found", prefs, cfg, request, tweetId=id)
+ 
+       if not tweet.hasVideos:
+-        resp renderErrorEmbed("No video in tweet", prefs, cfg, request,
++        resp renderErrorEmbed("No video in post", prefs, cfg, request,
+                               tweetId=id, username=tweet.user.username)
+ 
+       resp renderVideoEmbed(tweet, cfg, request)
+@@ -72,7 +72,7 @@ proc createEmbedRouter*(cfg: Config) =
+         path = getPath()
+ 
+       if tweet == nil:
+-        resp renderErrorEmbed("Tweet not found", prefs, cfg, request,
++        resp renderErrorEmbed("Post not found", prefs, cfg, request,
+                               tweetId=id, username=user)
+ 
+       resp renderTweetEmbed(tweet, path, prefs, cfg, request)
+@@ -100,7 +100,7 @@ proc createEmbedRouter*(cfg: Config) =
+ 
+       let (username, tweetId) = parseTweetUrl(url, cfg)
+       if username.len == 0 or tweetId.len == 0:
+-        resp Http400, "Invalid tweet URL"
++        resp Http400, "Invalid post URL"
+ 
+       let tweet = await getTweetByRestId(tweetId)
+       if tweet == nil:
+diff --git a/src/routes/status.nim b/src/routes/status.nim
+index 2fc7499..bfa6c9f 100644
+--- a/src/routes/status.nim
++++ b/src/routes/status.nim
+@@ -19,7 +19,7 @@ proc createStatusRouter*(cfg: Config) =
+       let id = @"id"
+ 
+       if id.len > 19 or id.any(c => not c.isDigit):
+-        resp Http404, showError("Invalid tweet ID", cfg)
++        resp Http404, showError("Invalid post ID", cfg)
+ 
+       let
+         prefs = requestPrefs()
+@@ -35,7 +35,7 @@ proc createStatusRouter*(cfg: Config) =
+       let conv = await getTweet(id, getCursor(), sort)
+ 
+       if conv == nil or conv.tweet == nil or conv.tweet.id == 0:
+-        var error = "Tweet not found"
++        var error = "Post not found"
+         if conv != nil and conv.tweet != nil and conv.tweet.tombstone.len > 0:
+           error = conv.tweet.tombstone
+         resp Http404, showError(error, cfg)
+@@ -79,11 +79,11 @@ proc createStatusRouter*(cfg: Config) =
+       let id = @"id"
+ 
+       if id.len > 19 or id.any(c => not c.isDigit):
+-        resp Http404, showError("Invalid tweet ID", cfg)
++        resp Http404, showError("Invalid post ID", cfg)
+ 
+       let edits = await getGraphEditHistory(id)
+       if edits.latest == nil or edits.latest.id == 0:
+-        resp Http404, showError("Tweet history not found", cfg)
++        resp Http404, showError("Post history not found", cfg)
+ 
+       let
+         prefs = requestPrefs()
+diff --git a/src/views/tweet.nim b/src/views/tweet.nim
+index cfe4ccf..3d61370 100644
+--- a/src/views/tweet.nim
++++ b/src/views/tweet.nim
+@@ -32,7 +32,7 @@ proc renderHeader(tweet: Tweet; retweet: string; pinned: bool; prefs: Prefs;
+     if pinned:
+       let pinnedLabel =
+         if "/i/communities/" in path: "Pinned by Community mods"
+-        else: "Pinned Tweet"
++        else: "Pinned Post"
+       tdiv(class="pinned"):
+         span: icon("pin", pinnedLabel)
+     elif retweet.len > 0:
+diff --git a/tests/test_space.py b/tests/test_space.py
+index d2ba672..3ea5d8b 100644
+--- a/tests/test_space.py
++++ b/tests/test_space.py
+@@ -107,7 +107,7 @@ class TestSpaceCard(BaseCase):
+     def test_space_card_title(self):
+         """Space card should have title."""
+         self.open("http://localhost:8080/bubbleboi/status/2065299704808960482")
+-        self.assert_text_visible("Twitter Space", ".card-title")
++        self.assert_text_visible("Space", ".card-title")
+ 
+ 
+ class TestSpaceNotFound(BaseCase):
+diff --git a/tests/test_tweet.py b/tests/test_tweet.py
+index 0fa7672..0bd08c3 100644
+--- a/tests/test_tweet.py
++++ b/tests/test_tweet.py
+@@ -132,7 +132,7 @@ class TweetTest(BaseTestCase):
+     @parameterized.expand(invalid)
+     def test_invalid_id(self, tweet):
+         self.open_nitter(tweet)
+-        self.assert_text('Tweet not found', '.error-panel')
++        self.assert_text('Post not found', '.error-panel')
+ 
+     #@parameterized.expand(reply)
+     #def test_thread(self, tweet, num):
+-- 
+2.56.0
+
