@@ -1,4 +1,4 @@
-From 79b2c25d3ec2ed9979ebefa4993b7c1f0543e68d Mon Sep 17 00:00:00 2001
+From 09d506b386d9a1f7125147aceceb9e7c2b285314 Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Sun, 18 Oct 2026 14:22:27 +0000
 Subject: [PATCH 12/15] pacchi: rename to "post"
@@ -7,10 +7,13 @@ Subject: [PATCH 12/15] pacchi: rename to "post"
  src/parser.nim        | 2 +-
  src/routes/embed.nim  | 8 ++++----
  src/routes/status.nim | 8 ++++----
- src/views/tweet.nim   | 2 +-
+ src/views/list.nim    | 2 +-
+ src/views/profile.nim | 2 +-
+ src/views/search.nim  | 6 +++---
+ src/views/tweet.nim   | 4 ++--
  tests/test_space.py   | 2 +-
  tests/test_tweet.py   | 2 +-
- 6 files changed, 12 insertions(+), 12 deletions(-)
+ 9 files changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/src/parser.nim b/src/parser.nim
 index 689bcd3..a82d2d9 100644
@@ -96,11 +99,62 @@ index 2fc7499..bfa6c9f 100644
  
        let
          prefs = requestPrefs()
+diff --git a/src/views/list.nim b/src/views/list.nim
+index d25943f..a063293 100644
+--- a/src/views/list.nim
++++ b/src/views/list.nim
+@@ -8,7 +8,7 @@ import ".."/[types, utils]
+ proc renderListTabs*(query: Query; path: string): VNode =
+   buildHtml(ul(class="tab")):
+     li(class=query.getTabClass(posts)):
+-      a(href=(path)): text "Tweets"
++      a(href=(path)): text "Posts"
+     li(class=query.getTabClass(userList)):
+       a(href=(path & "/members")): text "Members"
+ 
+diff --git a/src/views/profile.nim b/src/views/profile.nim
+index 9d045cf..37224e3 100644
+--- a/src/views/profile.nim
++++ b/src/views/profile.nim
+@@ -71,7 +71,7 @@ proc renderUserCard*(user: User; prefs: Prefs; info: AccountInfo): VNode =
+ 
+       tdiv(class="profile-card-extra-links"):
+         ul(class="profile-statlist"):
+-          renderStat(user.tweets, "posts", text="Tweets")
++          renderStat(user.tweets, "posts", text="Posts")
+           renderStatLink(user.following, "following", &"/{user.username}/following")
+           renderStatLink(user.followers, "followers", &"/{user.username}/followers")
+           renderStat(user.likes, "likes")
+diff --git a/src/views/search.nim b/src/views/search.nim
+index 170b2d7..70a9fc9 100644
+--- a/src/views/search.nim
++++ b/src/views/search.nim
+@@ -6,7 +6,7 @@ import renderutils, timeline
+ import ".."/[types, query]
+ 
+ const toggles = {
+-  "nativeretweets": "Retweets",
++  "nativeretweets": "Reposts",
+   "media": "Media",
+   "videos": "Videos",
+   "news": "News",
+@@ -31,9 +31,9 @@ proc renderProfileTabs*(query: Query; username: string): VNode =
+   let link = "/" & username
+   buildHtml(ul(class="tab")):
+     li(class=query.getTabClass(posts)):
+-      a(href=link): text "Tweets"
++      a(href=link): text "Posts"
+     li(class=(query.getTabClass(replies) & " wide")):
+-      a(href=(link & "/with_replies")): text "Tweets & Replies"
++      a(href=(link & "/with_replies")): text "Posts & Replies"
+     li(class=query.getTabClass(media)):
+       a(href=(link & "/media")): text "Media"
+     if query.fromUser.len == 1:
 diff --git a/src/views/tweet.nim b/src/views/tweet.nim
-index cfe4ccf..3d61370 100644
+index cfe4ccf..6281d17 100644
 --- a/src/views/tweet.nim
 +++ b/src/views/tweet.nim
-@@ -32,7 +32,7 @@ proc renderHeader(tweet: Tweet; retweet: string; pinned: bool; prefs: Prefs;
+@@ -32,12 +32,12 @@ proc renderHeader(tweet: Tweet; retweet: string; pinned: bool; prefs: Prefs;
      if pinned:
        let pinnedLabel =
          if "/i/communities/" in path: "Pinned by Community mods"
@@ -109,6 +163,12 @@ index cfe4ccf..3d61370 100644
        tdiv(class="pinned"):
          span: icon("pin", pinnedLabel)
      elif retweet.len > 0:
+       tdiv(class="retweet-header"):
+-        span: icon("retweet", retweet & " retweeted")
++        span: icon("retweet", retweet & " reposted")
+ 
+     tdiv(class="tweet-header"):
+       a(class="tweet-avatar", href=("/" & tweet.user.username)):
 diff --git a/tests/test_space.py b/tests/test_space.py
 index d2ba672..3ea5d8b 100644
 --- a/tests/test_space.py

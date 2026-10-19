@@ -1,15 +1,82 @@
-From f46f79676957c3247b8b72280c2d4e309986be2e Mon Sep 17 00:00:00 2001
+From c019ff2fd595421fd204ca0d0ca71c4a4775617f Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Sun, 18 Oct 2026 14:14:40 +0000
 Subject: [PATCH 10/15] pacchI: remove most links and references to upstream
 
 ---
+ README.md             | 33 ++++++++++++-------------
  public/md/about.md    | 20 ++++------------
  src/nitter.nim        |  4 ++--
  src/views/about.nim   | 56 +++++++++++++++++++++----------------------
  src/views/feature.nim | 14 +++++------
- 4 files changed, 42 insertions(+), 52 deletions(-)
+ 5 files changed, 57 insertions(+), 70 deletions(-)
 
+diff --git a/README.md b/README.md
+index 5265ed8..8770000 100644
+--- a/README.md
++++ b/README.md
+@@ -1,16 +1,16 @@
+-![shitter logo](/public/android-chrome-192x192.png)
++![Pacchi logo](/public/android-chrome-192x192.png)
+ 
+-# Shitter - a Nitter fork
++# Pacchi
+ 
+-A free and open source alternative Twitter front-end focused on privacy and
++A free and open source alternative front-end focused on privacy and
+ performance. \
+ Inspired by the [Invidious](https://github.com/iv-org/invidious) project.
+ 
+ - No JavaScript or ads
+-- All requests go through the backend, client never talks to Twitter
+-- Prevents Twitter from tracking your IP or JavaScript fingerprint
+-- Uses Twitter's unofficial API (no developer account required)
+-- Lightweight (thanks to [@nim_lang](https://shitter.thepixora.com/nim_lang), 60KB vs 784KB from twitter.com)
++- All requests go through the backend, client never talks to third parties
++- Prevents tracking of your IP or JavaScript fingerprint
++- Uses an unofficial API (no developer account required)
++- Lightweight (thanks to [@nim_lang](https://shitter.thepixora.com/nim_lang))
+ - RSS feeds
+ - Themes
+ - Mobile support (responsive design)
+@@ -32,21 +32,18 @@ This repository does not accept Pull Requests, but contributions are welcome in
+ 
+ ## Why?
+ 
+-It's impossible to use Twitter without JavaScript enabled, and as of 2024 you
+-need to sign up. For privacy-minded folks, preventing JavaScript analytics and
++It's impossible to use some platforms without JavaScript enabled, and as of 2024 you
++may need to sign up. For privacy-minded folks, preventing JavaScript analytics and
+ IP-based tracking is important, but apart from using a VPN and uBlock/uMatrix,
+ it's impossible. Despite being behind a VPN and using heavy-duty adblockers,
+ you can get accurately tracked with your [browser's
+ fingerprint](https://restoreprivacy.com/browser-fingerprinting/), [no
+-JavaScript required](https://noscriptfingerprint.com/). This all became
+-particularly important after Twitter [removed the
+-ability](https://www.eff.org/deeplinks/2020/04/twitter-removes-privacy-option-and-shows-why-we-need-strong-privacy-laws)
+-for users to control whether their data gets sent to advertisers.
++JavaScript required](https://noscriptfingerprint.com/).
+ 
+-Using an instance of Nitter (hosted on a VPS for example), you can browse
+-Twitter without JavaScript while retaining your privacy. In addition to
+-respecting your privacy, Nitter is on average around 15 times lighter than
+-Twitter, and in most cases serves pages faster (eg. timelines load 2-4x faster).
++Using an instance of Pacchi (hosted on a VPS for example), you can browse
++without JavaScript while retaining your privacy. In addition to
++respecting your privacy, Pacchi is on average around 15 times lighter than
++the source platform, and in most cases serves pages faster (eg. timelines load 2-4x faster).
+ 
+ ## Screenshot
+ 
+@@ -107,7 +104,7 @@ To run Nitter via systemd you can use this service file:
+ 
+ ```ini
+ [Unit]
+-Description=Nitter (An alternative Twitter front-end)
++Description=Pacchi (An alternative front-end)
+ After=syslog.target
+ After=network.target
+ 
 diff --git a/public/md/about.md b/public/md/about.md
 index 7f2e3b3..0f938ad 100644
 --- a/public/md/about.md

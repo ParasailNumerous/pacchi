@@ -1,67 +1,70 @@
-From 53887a8373d432c93a59162aa94c6092a75f52dd Mon Sep 17 00:00:00 2001
+From 8805e0b2f30abaff4f7a8035f61af0201015d7ea Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Sun, 18 Oct 2026 14:19:54 +0000
 Subject: [PATCH 11/15] pacchi: remove most main site references
 
 ---
- public/md/about.md        | 20 ++++++++++----------
+ public/md/about.md        | 29 +++++++++++++----------------
  public/robots.txt         |  2 --
  src/parser.nim            |  2 +-
  src/prefs_impl.nim        |  4 ++--
  src/views/opensearch.nimf |  2 +-
  src/views/rss.nimf        |  2 +-
- 6 files changed, 15 insertions(+), 17 deletions(-)
+ 6 files changed, 18 insertions(+), 23 deletions(-)
 
 diff --git a/public/md/about.md b/public/md/about.md
-index 0f938ad..08255f9 100644
+index 0f938ad..638499d 100644
 --- a/public/md/about.md
 +++ b/public/md/about.md
-@@ -1,12 +1,12 @@
+@@ -1,35 +1,32 @@
  # About
  
 -Pacchi is a free and open source alternative Twitter front-end focused on
-+Pacchi is a free and open source alternative "Website" front-end focused on
++Pacchi is a free and open source alternative front-end focused on
  privacy and performance. Source available at [pacchi](https://github.com/ParasailNumerous/pacchi).
  
  - No JavaScript or ads
 -- All requests go through the backend, client never talks to Twitter
 -- Prevents Twitter from tracking your IP or JavaScript fingerprint
 -- Uses Twitter's unofficial API (no developer account required)
-+- All requests go through the backend, client never talks to X
-+- Prevents "Website" from tracking your IP or JavaScript fingerprint
-+- Uses X's unofficial API (no developer account required)
- - Lightweight (thanks to [@nim_lang](/nim_lang), 60KB vs 784KB from twitter.com)
+-- Lightweight (thanks to [@nim_lang](/nim_lang), 60KB vs 784KB from twitter.com)
++- All requests go through the backend, client never talks to third parties
++- Prevents tracking of your IP or JavaScript fingerprint
++- Uses an unofficial API (no developer account required)
++- Lightweight (thanks to [@nim_lang](/nim_lang))
  - RSS feeds
  - Themes
-@@ -14,22 +14,22 @@ privacy and performance. Source available at [pacchi](https://github.com/Parasai
+ - Mobile support (responsive design)
  
  ## Why use Pacchi?
  
 -It's impossible to use Twitter without JavaScript enabled, and as of 2024 you
-+It's impossible to use "Website" without JavaScript enabled, and as of 2024 you
- need to sign up. For privacy-minded folks, preventing JavaScript analytics and
+-need to sign up. For privacy-minded folks, preventing JavaScript analytics and
++It's impossible to use some platforms without JavaScript enabled, and as of 2024 you
++may need to sign up. For privacy-minded folks, preventing JavaScript analytics and
  IP-based tracking is important, but apart from using a VPN and uBlock/uMatrix,
  it's impossible. Despite being behind a VPN and using heavy-duty adblockers,
  you can get accurately tracked with your [browser's
  fingerprint](https://restoreprivacy.com/browser-fingerprinting/), [no
- JavaScript required](https://noscriptfingerprint.com/). This all became
+-JavaScript required](https://noscriptfingerprint.com/). This all became
 -particularly important after Twitter [removed the
-+particularly important after "Website" [removed the
- ability](https://www.eff.org/deeplinks/2020/04/twitter-removes-privacy-option-and-shows-why-we-need-strong-privacy-laws)
- for users to control whether their data gets sent to advertisers.
+-ability](https://www.eff.org/deeplinks/2020/04/twitter-removes-privacy-option-and-shows-why-we-need-strong-privacy-laws)
+-for users to control whether their data gets sent to advertisers.
++JavaScript required](https://noscriptfingerprint.com/).
  
  Using an instance of Pacchi (hosted on a VPS for example), you can browse
 -Twitter without JavaScript while retaining your privacy. In addition to
-+X without JavaScript while retaining your privacy. In addition to
++without JavaScript while retaining your privacy. In addition to
  respecting your privacy, Pacchi is on average around 15 times lighter than
 -Twitter, and in most cases serves pages faster (eg. timelines load 2-4x faster).
-+X, and in most cases serves pages faster (eg. timelines load 2-4x faster).
++the source platform, and in most cases serves pages faster (eg. timelines load 2-4x faster).
  
 -In the future a simple account system will be added that lets you follow Twitter
-+In the future a simple account system will be added that lets you follow X
- users, allowing you to have a clean chronological timeline without needing a
+-users, allowing you to have a clean chronological timeline without needing a
 -Twitter account.
-+X account.
++In the future a simple account system will be added that lets you follow
++users, allowing you to have a clean chronological timeline without needing an
++account.
 diff --git a/public/robots.txt b/public/robots.txt
 index 812656a..e342351 100644
 --- a/public/robots.txt
