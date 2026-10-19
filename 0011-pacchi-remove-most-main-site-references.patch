@@ -1,7 +1,7 @@
 From 53887a8373d432c93a59162aa94c6092a75f52dd Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Sun, 18 Oct 2026 14:19:54 +0000
-Subject: [PATCH 11/14] pacchi: remove most main site references
+Subject: [PATCH 11/15] pacchi: remove most main site references
 
 ---
  public/md/about.md        | 20 ++++++++++----------

@@ -1,7 +1,7 @@
 From 6bee1a83aec1ab3696c826d21cfed32d7eb43a5d Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 18:59:45 +0000
-Subject: [PATCH 07/14] a11y: Name the search page input
+Subject: [PATCH 07/15] a11y: Name the search page input
 
 The standalone /search page still rendered a placeholder-only input.
 Give it an aria-label like the navbar field.

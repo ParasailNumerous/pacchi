@@ -1,7 +1,7 @@
 From 6d5b40c6fabb864715ca59620ce339b07dd0deae Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Fri, 18 Sep 2026 04:25:32 +0000
-Subject: [PATCH 09/14] perf: minify CSS output
+Subject: [PATCH 09/15] perf: minify CSS output
 
 Compress CSS output by passing Compressed parameter to
 Dart Sass.

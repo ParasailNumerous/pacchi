@@ -1,7 +1,7 @@
 From f46f79676957c3247b8b72280c2d4e309986be2e Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Sun, 18 Oct 2026 14:14:40 +0000
-Subject: [PATCH 10/14] pacchI: remove most links and references to upstream
+Subject: [PATCH 10/15] pacchI: remove most links and references to upstream
 
 ---
  public/md/about.md    | 20 ++++------------

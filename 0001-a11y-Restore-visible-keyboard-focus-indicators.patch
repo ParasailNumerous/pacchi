@@ -1,7 +1,7 @@
 From 8bc8fdf9c1338733457097a6f2e2e380e704c95d Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Thu, 17 Sep 2026 18:52:42 +0000
-Subject: [PATCH 01/14] a11y: Restore visible keyboard focus indicators
+Subject: [PATCH 01/15] a11y: Restore visible keyboard focus indicators
 
 The global `outline: unset` reset suppressed the browser focus ring
 without a replacement, so keyboard users could not see where focus

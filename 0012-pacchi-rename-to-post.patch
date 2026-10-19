@@ -1,7 +1,7 @@
 From 79b2c25d3ec2ed9979ebefa4993b7c1f0543e68d Mon Sep 17 00:00:00 2001
 From: ParasailNumerous <305966967+ParasailNumerous@users.noreply.github.com>
 Date: Sun, 18 Oct 2026 14:22:27 +0000
-Subject: [PATCH 12/14] pacchi: rename to "post"
+Subject: [PATCH 12/15] pacchi: rename to "post"
 
 ---
  src/parser.nim        | 2 +-
